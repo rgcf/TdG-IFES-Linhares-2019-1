@@ -275,6 +275,11 @@ int testarConexidade(nohLista* l)
 	}
 	return 1;	
 }
+/*
+Verificar se o nó tem conexão com alguém...
+se ele não tem pula para o próximo e verifica se ele tem conexão (Guardar o elemento que foi verificado no vetor)
+se ele tem conexão, vc vai até esse nó que está conectado (salva ele no vetor), verifica se ele está 
+*/
 //Fazendo a busca em profundidade de verdade... hard game....
 int testarConexidadeHard(nohLista* l) 
 {

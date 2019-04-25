@@ -280,7 +280,7 @@ int testarConexidade(nohLista* l)
 //Fazendo a busca em profundidade de verdade... hard game....
 int testarConexidadeHard(nohLista* l) 
 {
-	int i, v = 0;
+	int i, v = 0, posVetor;
 	int *vetVertices = (int *) malloc(numNohs * sizeof(int));
 	nohLista *aux, *auxPos;
 	//Se o nó inicial não possuir nenhuma ligação então ele já retorna que não é conexo
@@ -294,20 +294,22 @@ int testarConexidadeHard(nohLista* l)
 	{
 		while (aux)
 		{
-			v++;
-			for (i = 0; i < numNohs; i++)
+			if (aux->adj)
 			{
-				if (vetVertices[i] == aux->info) //Verifica se o vértice já existe no vetor
-					break;
-
-				if (!(vetVertices[i])) //Caso o vetor atinja o valor nulo ele recebe o vértice e encerra o for
+				//v++;
+				for (i = 0; i < numNohs; i++)
 				{
-					vetVertices[i] = aux->info;
-					break;
+					if (vetVertices[i] == aux->info) //Verifica se o vértice já existe no vetor
+						break;
+
+					if (!(vetVertices[i])) //Caso o vetor atinja o valor nulo ele recebe o vértice e encerra o for
+					{
+						vetVertices[i] = aux->info;
+						posVetor = i;
+						break;
+					}
 				}
 			}
-
-			aux = aux->nohLigado;
 		}
 		aux = auxPos;
 	}
@@ -315,6 +317,17 @@ int testarConexidadeHard(nohLista* l)
 	return 1;	
 
 	
+}
+
+//Função para verificar se existe ou não o valor do noh dentro do vetor.
+int verificaVetor(int *vetor[], int noh)
+{
+	int i;
+	for( i = 0; i < numNohs; i++)
+		if (vetor[i] != noh && vetor[i] == NULL) 
+			return 1;
+		else
+			return 0;
 }
 
 int testarGrauVertice(nohLista *li, int vertice)

@@ -21,6 +21,7 @@ nohLista* inicializarLista(void)
 {
 	//printf("lista inicializada!!!\n");
    return NULL;
+
 }
 
 
@@ -31,6 +32,8 @@ nohLista* inserirNaLista(nohLista* l, int info, float custo)
     novo->info = info ;   
     novo->custo = custo;
     novo->prox = l;
+	novo->numLig = 0;
+	novo->nohLigado = 0;
 
     return novo;   
 } 
@@ -71,12 +74,9 @@ nohLista* busca (nohLista* l, int dado)
 {
 	nohLista *p;
 	for (p=l; p!=NULL; p=p->prox)
-	{
 		if (p->info == dado)
-		{	
 			return p;
-		}
-	}
+			
 	return NULL; //n�o achou o elemento
 }	
 	
@@ -218,7 +218,8 @@ void lerArqNumArestas()
 		    	//printf("nohOrig: %d -- ",nohOrig);
 		  	}
 		  	// armazena o n� destino
-		  	else if(trocar == 1)
+		    //else
+		    if(trocar == 1)
 		  	{
 		  		// l� a origem e o destino do noh e armazena
 		    	fscanf(fp,"%d",&nohDest); 
@@ -230,7 +231,6 @@ void lerArqNumArestas()
       	
       	if(trocar == 2)
       	{
-
 	  		 // se o n� de origem recebido for igual o ao n� atual na lista principal...
 	  		 if(nohOrig == listaPrinAux->info)
 	  		 {
@@ -243,7 +243,7 @@ void lerArqNumArestas()
 	  		 	listaAdj = inserirNaLista(listaAdj, nohDest, nohOrig);
 	  	     	listaPrinAux->adj = listaAdj;
 				// listaPrinAux->nohLigado = 1;
-				listaPrinAux->numLig++;
+				listaPrinAux -> numLig++;
 	  	     	trocar=0;
 	  	     	manterLeitura=0;
 	  	     }
@@ -257,8 +257,6 @@ void lerArqNumArestas()
 	  	     	manterLeitura++;
 	  	     }
       	}
-
-  
     }
         
     fclose(fp);  // fecha o arquivo ap�s o t�rmino do seu uso
@@ -268,7 +266,7 @@ void lerArqNumArestas()
 int testarConexidade(nohLista* l) 
 {
 	if (!(l->adj))
-			return 0;
+		return 0;
 	while (l)
 	{
 		if (!(l->adj))

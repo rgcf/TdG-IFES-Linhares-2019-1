@@ -281,56 +281,62 @@ se ele não tem pula para o próximo e verifica se ele tem conexão (Guardar o e
 se ele tem conexão, vc vai até esse nó que está conectado (salva ele no vetor), verifica se ele está 
 */
 //Fazendo a busca em profundidade de verdade... hard game....
-int testarConexidadeHard(nohLista* l) 
+int testarConexidadeHard(nohLista* l , int verticePartida) 
 {
 	int i, v = 0, posVetor;
 	int *vetVertices = (int *) malloc(numNohs * sizeof(int));
 	nohLista *aux, *auxPos;
 	//Se o nó inicial não possuir nenhuma ligação então ele já retorna que não é conexo
-	if (!(l->adj))
-			return 0;
-	
-	vetVertices[v] = l -> info;
-	auxPos = aux = l;
 
-	while (auxPos)
+	if (l)
 	{
-		while (aux)
-		{
-			if (aux->adj)
-			{
-				//v++;
-				for (i = 0; i < numNohs; i++)
-				{
-					if (vetVertices[i] == aux->info) //Verifica se o vértice já existe no vetor
-						break;
+		auxPos = aux = l;
 
-					if (!(vetVertices[i])) //Caso o vetor atinja o valor nulo ele recebe o vértice e encerra o for
+		while (auxPos)
+		{
+			if (verificaVetor(vetVertices,auxPos->info)) 
+				vetVertices[v] = auxPos->info;
+			
+			
+			while (aux)
+			{
+				if (aux->adj)
+				{
+					
+					for (i = 0; i < numNohs; i++)
 					{
-						vetVertices[i] = aux->info;
-						posVetor = i;
-						break;
+						if (vetVertices[i] == aux->info) //Verifica se o vértice já existe no vetor
+							break;
+
+						if (!(vetVertices[i])) //Caso o vetor atinja o valor nulo ele recebe o vértice e encerra o for
+						{
+							vetVertices[i] = aux->info;
+							posVetor = i;
+							break;
+						}
 					}
 				}
 			}
+			aux = auxPos;
 		}
-		aux = auxPos;
 	}
-
 	return 1;	
 
 	
 }
 
 //Função para verificar se existe ou não o valor do noh dentro do vetor.
-int verificaVetor(int *vetor[], int noh)
+int* verificaVetor(int *vetor, int noh)
 {
 	int i;
 	for( i = 0; i < numNohs; i++)
-		if (vetor[i] != noh && vetor[i] == NULL) 
-			return 1;
+		if (vetor[i] != noh && vetor[i] == NULL)
+		{ 
+			vetor[i] = noh;
+			return vetor;
+		}
 		else
-			return 0;
+			return vetor;
 }
 
 int testarGrauVertice(nohLista *li, int vertice)

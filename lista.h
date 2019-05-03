@@ -53,7 +53,7 @@ void lerArqNumNohs();
 void lerArqNumArestas();
 
 
-
+int verificaVetor(int *vetor, int noh);
 // funções para grafos
 
 // testar se existe caminho entre quaisquer dois vértices de G

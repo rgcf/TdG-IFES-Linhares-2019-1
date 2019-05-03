@@ -52,7 +52,9 @@ int main ()
 		listaPrinAux=listaPrinAux->prox;
 	}
 
-	
+	if(testarGrauVertice(listaPrin) && testarGrauVertice(listaPrin))
+
+
 	// 0 se n�o for conexo e 1 se for
 	//	ehConexo = testarCoxidade(listaPrinAux);		
 	return 0;

@@ -273,37 +273,53 @@ usar o vetor como indice para a busca do struct e
 int testarConexidadeHard(nohLista *l, int verticePartida)
 {
 	int i, v = 0, posVetor;
-	int *vetVertices = (int *)malloc(numNohs * sizeof(int));
-	nohLista *aux, *auxPos;
+	int vetVertices[numNohs];
+	//int *vetVertices = (int *)malloc(numNohs * sizeof(int));
+	for(i = 0; i < numNohs; i++)
+	{
+		vetVertices[i] = NULL;
+	}
+	
+	nohLista *lAux, *auxPos;
 	//Se o nó inicial não possuir nenhuma ligação então ele já retorna que não é conexo
+	auxPos = lAux = l;
 	do
 	{
-		if (l)
+		if (lAux)
 		{
-			auxPos = aux = l;
-			vetVertices[v] = aux->info;
+			vetVertices[v] = lAux->info;
 			v++;
-
-			if (aux->adj)
-				while (aux)
+			if (lAux->adj)
 				{
-					aux = busca(l, aux->adj->info);
-					if (aux)
+					vetVertices[v] = lAux ->adj -> info;
+					v++;
+					auxPos = busca(l, lAux -> adj -> info);
+
+					if (auxPos -> adj)
 					{
-						vetVertices[v] = aux->info;
-						aux = busca(l, aux->adj->info);
+						lAux = auxPos;
+					}
+					
+					lAux = busca(l, lAux->adj->info);
+					if (lAux)
+					{
+						vetVertices[v] = lAux->info;
+						lAux = busca(l, lAux->adj->info);
 					}
 					else
 					{
-						/* code */
 					}
-
 				}
-
-			if (numNohs > v)
+			else
 			{
 				printf("Nao e conexo!!!");
-				return;
+				return 0;
+			}
+			
+			
+			if (numNohs > v)
+			{
+				
 			}
 		}
 		else
@@ -311,13 +327,16 @@ int testarConexidadeHard(nohLista *l, int verticePartida)
 			printf("Nao existem nos...");
 			return -1;
 		}
+		if (v==numNohs)
+			return 1;
 
 	} while (v >= 0);
-	return 1;
+
+	return 0;
 }
 
 //Função para verificar se existe ou não o valor do noh dentro do vetor.
-int verificaVetor(int *vetor, int noh)
+int verificaVetor(int vetor[], int noh)
 {
 	int i;
 	for (i = 0; i < numNohs; i++)

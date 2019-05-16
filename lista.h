@@ -59,5 +59,5 @@ int verificaVetor(int *vetor, int noh);
 // testar se existe caminho entre quaisquer dois vértices de G
 int testarConexidade(nohLista* l);
 // 0 se o grau do vértice é par e 1 se o grau for ímpar
-int testarGrauVertice(nohLista *li, int vertice);
+int testarGrauVertice(nohLista *li);
 #endif
